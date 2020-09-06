@@ -1,0 +1,12 @@
+cnabookstore\AbstractEvent.class
+cnabookstore\DeliveryApplication.class
+cnabookstore\Delivery.class
+cnabookstore\config\kafka\KafkaProcessor.class
+cnabookstore\Ordered.class
+cnabookstore\AbstractEvent$1.class
+cnabookstore\DeliveryStatusChanged.class
+cnabookstore\DeliveryRepository.class
+cnabookstore\PolicyHandler.class
+cnabookstore\DeliveryController.class
+cnabookstore\DeliveryPrepared.class
+cnabookstore\OrderCanceled.class

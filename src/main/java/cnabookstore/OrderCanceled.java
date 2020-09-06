@@ -13,11 +13,11 @@ public class OrderCanceled extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setId(Long orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 }
