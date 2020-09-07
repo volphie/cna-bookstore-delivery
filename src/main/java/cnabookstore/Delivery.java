@@ -2,7 +2,6 @@ package cnabookstore;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
-import java.util.List;
 
 @Entity
 @Table(name="Delivery_table")
@@ -13,12 +12,8 @@ public class Delivery {
     private Long id;
     private Long orderId;
 
-    private Long bookId;
-    private Long customerId;
-    private Integer quantity;
     private String deliveryAddress;
     private String deliveryStatus;
-    private String orderStatus;
 
     public Long getId() {
         return id;
@@ -36,30 +31,6 @@ public class Delivery {
         this.orderId = orderId;
     }
 
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public String getDeliveryAddress() {
         return deliveryAddress;
     }
@@ -74,14 +45,6 @@ public class Delivery {
 
     public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     @PostUpdate

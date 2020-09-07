@@ -30,6 +30,7 @@ public class PolicyHandler{
             System.out.println("##### listener CreateDelivery : " + ordered.toJson());
             Delivery delivery = new Delivery();
             delivery.setOrderId(ordered.getOrderId());
+            delivery.setDeliveryAddress(ordered.getDeliveryAddress());
             delivery.setDeliveryStatus("CreateDelivery");
 
             System.out.println("Ordered Info: " + ordered.toJson());
