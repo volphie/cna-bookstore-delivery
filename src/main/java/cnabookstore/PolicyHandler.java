@@ -1,6 +1,9 @@
 package cnabookstore;
 
 import cnabookstore.config.kafka.KafkaProcessor;
+
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +40,12 @@ public class PolicyHandler{
 
         if(deliveryPrepared.isMe()){
             System.out.println("##### listener Ship : " + deliveryPrepared.toJson());
-            Delivery delivery = new Delivery();
-            delivery.setOrderId(deliveryPrepared.getOrderId());
-            delivery.setDeliveryStatus("Shipped");
 
-            System.out.println("DeliveryPrepared Info: " + deliveryPrepared.toJson());
-            deliveryRepository.save(delivery);
+            Optional<Delivery> deliveryOptional = deliveryRepository.findById(deliveryPrepared.getId());
+            deliveryOptional.ifPresent((delivery) ->{
+                delivery.setDeliveryStatus("Shipped");
+                deliveryRepository.save(delivery);
+            });
         }
     }
     @StreamListener(KafkaProcessor.INPUT)
@@ -50,12 +53,12 @@ public class PolicyHandler{
 
         if(orderCanceled.isMe()){
             System.out.println("##### listener CancelDelivery : " + orderCanceled.toJson());
-            Delivery delivery = new Delivery();
-            delivery.setOrderId(orderCanceled.getOrderId());
-            delivery.setDeliveryStatus("CancelDeliver");
 
-            System.out.println("OrderCanceled Info: " + orderCanceled.toJson());
-            deliveryRepository.save(delivery);
+            Optional<Delivery> deliveryOptional = deliveryRepository.findById(orderCanceled.getId());
+            deliveryOptional.ifPresent((delivery) ->{
+                delivery.setDeliveryStatus("CancelDeliver");
+                deliveryRepository.save(delivery);
+            });
         }
     }
 
