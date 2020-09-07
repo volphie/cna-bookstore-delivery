@@ -71,7 +71,7 @@ public class PolicyHandler{
 //            });
 
             Delivery deliveryOne = deliveryRepository.findFirstByOrderId(orderCanceled.getOrderId());
-            deliveryOne.setDeliveryStatus("CancelDeliver");
+            deliveryOne.setDeliveryStatus("CancelDelivery");
             deliveryRepository.save(deliveryOne);
 
 //            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(orderCanceled.getOrderId());
