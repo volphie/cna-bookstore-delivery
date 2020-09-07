@@ -2,6 +2,7 @@ package cnabookstore;
 
 import cnabookstore.config.kafka.KafkaProcessor;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -41,24 +42,37 @@ public class PolicyHandler{
         if(deliveryPrepared.isMe()){
             System.out.println("##### listener Ship : " + deliveryPrepared.toJson());
 
-            Optional<Delivery> deliveryOptional = deliveryRepository.findById(deliveryPrepared.getId());
-            deliveryOptional.ifPresent((delivery) ->{
-                delivery.setDeliveryStatus("Shipped");
-                deliveryRepository.save(delivery);
-            });
+            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(deliveryPrepared.getOrderId());
+            if (deliveryOptional.isPresent()) {
+                List<Delivery> deliveryList = deliveryOptional.get();
+                for (Delivery delivery : deliveryList) {
+                    delivery.setDeliveryStatus("Shipped");
+                    deliveryRepository.save(delivery);
+                }
+            }
         }
     }
+
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverOrderCanceled_CancelDelivery(@Payload OrderCanceled orderCanceled){
 
         if(orderCanceled.isMe()){
             System.out.println("##### listener CancelDelivery : " + orderCanceled.toJson());
 
-            Optional<Delivery> deliveryOptional = deliveryRepository.findById(orderCanceled.getId());
-            deliveryOptional.ifPresent((delivery) ->{
-                delivery.setDeliveryStatus("CancelDeliver");
-                deliveryRepository.save(delivery);
-            });
+//            Optional<Delivery> deliveryOptional = deliveryRepository.findById(orderCanceled.getId());
+//            deliveryOptional.ifPresent((delivery) ->{
+//                delivery.setDeliveryStatus("CancelDeliver");
+//                deliveryRepository.save(delivery);
+//            });
+
+            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(orderCanceled.getOrderId());
+            if (deliveryOptional.isPresent()) {
+                List<Delivery> deliveryList = deliveryOptional.get();
+                for (Delivery delivery : deliveryList) {
+                    delivery.setDeliveryStatus("CancelDeliver");
+                    deliveryRepository.save(delivery);
+                }
+            }
         }
     }
 
