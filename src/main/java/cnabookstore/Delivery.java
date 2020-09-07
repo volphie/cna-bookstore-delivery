@@ -84,7 +84,7 @@ public class Delivery {
         this.orderStatus = orderStatus;
     }
 
-    @PrePersist
+    @PostPersist
     public void onPrePersist(){
         DeliveryStatusChanged deliveryStatusChanged = new DeliveryStatusChanged();
         BeanUtils.copyProperties(this, deliveryStatusChanged);

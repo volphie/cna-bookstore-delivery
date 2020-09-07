@@ -42,14 +42,19 @@ public class PolicyHandler{
         if(deliveryPrepared.isMe()){
             System.out.println("##### listener Ship : " + deliveryPrepared.toJson());
 
-            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(deliveryPrepared.getOrderId());
-            if (deliveryOptional.isPresent()) {
-                List<Delivery> deliveryList = deliveryOptional.get();
-                for (Delivery delivery : deliveryList) {
-                    delivery.setDeliveryStatus("Shipped");
-                    deliveryRepository.save(delivery);
-                }
-            }
+//            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(deliveryPrepared.getOrderId());
+
+            Delivery deliveryOne = deliveryRepository.findFirstByOrderId(deliveryPrepared.getOrderId());
+            deliveryOne.setDeliveryStatus("Shipped");
+            deliveryRepository.save(deliveryOne);
+
+//            if (deliveryOptional.isPresent()) {
+//                List<Delivery> deliveryList = deliveryOptional.get();
+//                for (Delivery delivery : deliveryList) {
+//                    delivery.setDeliveryStatus("Shipped");
+//                    deliveryRepository.save(delivery);
+//                }
+//            }
         }
     }
 
@@ -65,14 +70,18 @@ public class PolicyHandler{
 //                deliveryRepository.save(delivery);
 //            });
 
-            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(orderCanceled.getOrderId());
-            if (deliveryOptional.isPresent()) {
-                List<Delivery> deliveryList = deliveryOptional.get();
-                for (Delivery delivery : deliveryList) {
-                    delivery.setDeliveryStatus("CancelDeliver");
-                    deliveryRepository.save(delivery);
-                }
-            }
+            Delivery deliveryOne = deliveryRepository.findFirstByOrderId(orderCanceled.getOrderId());
+            deliveryOne.setDeliveryStatus("CancelDeliver");
+            deliveryRepository.save(deliveryOne);
+
+//            Optional<List<Delivery>> deliveryOptional = deliveryRepository.findByOrderByOrderIdAsc(orderCanceled.getOrderId());
+//            if (deliveryOptional.isPresent()) {
+//                List<Delivery> deliveryList = deliveryOptional.get();
+//                for (Delivery delivery : deliveryList) {
+//                    delivery.setDeliveryStatus("CancelDeliver");
+//                    deliveryRepository.save(delivery);
+//                }
+//            }
         }
     }
 

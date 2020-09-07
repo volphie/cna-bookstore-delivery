@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface DeliveryRepository extends PagingAndSortingRepository<Delivery, Long>{
 
-    Optional<List<Delivery>> findByOrderByOrderIdAsc(Long orderId);
+//    List<Delivery> findByOrderId(Long orderId);
+    Delivery findFirstByOrderId(Long orderId);
 
 }
