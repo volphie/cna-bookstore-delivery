@@ -4,6 +4,15 @@ package cnabookstore;
 public class DeliveryStatusChanged extends AbstractEvent {
 
     private Long id;
+    private Long orderId;
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
     public String getDeliveryStatus() {
         return deliveryStatus;
